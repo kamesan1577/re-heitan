@@ -1,0 +1,158 @@
+:root {
+  color-scheme: light dark;
+  --fg: #16181c;
+  --muted: #667;
+  --bg: #fff;
+  --line: #e1e8ed;
+  --accent: #1d9bf0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg: #e7e9ea;
+    --muted: #8b98a5;
+    --bg: #15202b;
+    --line: #2f3336;
+  }
+}
+
+body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Hiragino Sans",
+    "Noto Sans JP",
+    sans-serif;
+  font-size: 13px;
+  color: var(--fg);
+  background: var(--bg);
+}
+
+.panel {
+  padding: 14px 16px;
+}
+
+.panel--popup {
+  width: 288px;
+}
+
+.panel--options {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 28px 24px 56px;
+}
+
+h1 {
+  margin: 0 0 4px;
+  font-size: 15px;
+}
+
+h2 {
+  margin: 20px 0 8px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+p.hint {
+  margin: 2px 0 0;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.row__main {
+  flex: 1;
+  min-width: 0;
+}
+
+.row__label {
+  display: block;
+}
+
+input[type="text"],
+input[type="password"],
+select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 7px 9px;
+  font: inherit;
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+input[type="range"] {
+  width: 132px;
+  accent-color: var(--accent);
+}
+
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+}
+
+button {
+  padding: 6px 12px;
+  font: inherit;
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: var(--accent);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.stat {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.stat__value {
+  display: block;
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat__label {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.value {
+  min-width: 34px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--muted);
+}
+
+a {
+  color: var(--accent);
+}

@@ -1,0 +1,78 @@
+/*
+ * デモ用の目隠し。実際のタイムラインを録画するときに、投稿者の
+ * アイコンと ID を伏せる。判定とは独立しているので、素通しになった
+ * 投稿の投稿者も同じように隠れる。
+ *
+ * 対象は「誰が書いたか」を示す要素だけ。表示名・@ID・アイコンのほか、
+ * 本文や「返信先:」に出てくる @ メンションも含む。本文そのものは隠さない。
+ */
+
+:root[data-rh-anon]:not([data-rh-anon="off"]) {
+  /* 対象セレクタを 1 か所にまとめられないので、各ルールで列挙している。
+     X 側の data-testid が変わった場合、その部分だけが効かなくなる。 */
+}
+
+/* --- ぼかし --- */
+
+[data-rh-anon="blur"] :is([data-testid^="UserAvatar-Container"], [data-testid="Tweet-User-Avatar"]),
+[data-rh-anon="blur"] :is([data-testid="User-Name"], [data-testid="UserName"]),
+[data-rh-anon="blur"] [data-testid="socialContext"],
+[data-rh-anon="blur"] [data-testid="SideNav_AccountSwitcher_Button"],
+[data-rh-anon="blur"] [data-testid="HoverCard"],
+[data-rh-anon="blur"] [data-testid="UserCell"],
+[data-rh-anon="blur"] [data-rh-anon-handle] {
+  filter: blur(7px);
+}
+
+/* --- モザイク --- */
+/* SVG フィルタは anonymize.ts がページに差し込む。 */
+
+[data-rh-anon="mosaic"] :is([data-testid^="UserAvatar-Container"], [data-testid="Tweet-User-Avatar"]),
+[data-rh-anon="mosaic"] :is([data-testid="User-Name"], [data-testid="UserName"]),
+[data-rh-anon="mosaic"] [data-testid="socialContext"],
+[data-rh-anon="mosaic"] [data-testid="SideNav_AccountSwitcher_Button"],
+[data-rh-anon="mosaic"] [data-testid="HoverCard"],
+[data-rh-anon="mosaic"] [data-testid="UserCell"],
+[data-rh-anon="mosaic"] [data-rh-anon-handle] {
+  filter: url(#rh-mosaic);
+}
+
+/* --- 塗りつぶし --- */
+/* ぼかしやモザイクは元が推測されうる。確実に消したいときはこちら。 */
+
+[data-rh-anon="redact"] :is([data-testid^="UserAvatar-Container"], [data-testid="Tweet-User-Avatar"]),
+[data-rh-anon="redact"] :is([data-testid="User-Name"], [data-testid="UserName"]),
+[data-rh-anon="redact"] [data-testid="socialContext"],
+[data-rh-anon="redact"] [data-testid="SideNav_AccountSwitcher_Button"],
+[data-rh-anon="redact"] [data-testid="HoverCard"],
+[data-rh-anon="redact"] [data-testid="UserCell"],
+[data-rh-anon="redact"] [data-rh-anon-handle] {
+  position: relative;
+}
+
+[data-rh-anon="redact"] :is([data-testid^="UserAvatar-Container"], [data-testid="Tweet-User-Avatar"])::after,
+[data-rh-anon="redact"] :is([data-testid="User-Name"], [data-testid="UserName"])::after,
+[data-rh-anon="redact"] [data-testid="socialContext"]::after,
+[data-rh-anon="redact"] [data-testid="SideNav_AccountSwitcher_Button"]::after,
+[data-rh-anon="redact"] [data-testid="HoverCard"]::after,
+[data-rh-anon="redact"] [data-testid="UserCell"]::after,
+[data-rh-anon="redact"] [data-rh-anon-handle]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: currentColor;
+  opacity: 0.9;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+/* アイコンは丸のまま潰したほうが、隠していることが自然に伝わる。 */
+[data-rh-anon="redact"] :is([data-testid^="UserAvatar-Container"], [data-testid="Tweet-User-Avatar"])::after {
+  border-radius: 9999px;
+}
+
+/* ホバーカードはプロフィール全体が出るので、どのモードでも丸ごと伏せる。 */
+[data-rh-anon]:not([data-rh-anon="off"]) [data-testid="HoverCard"] {
+  pointer-events: none;
+}

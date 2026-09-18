@@ -1,0 +1,72 @@
+/* 判定結果の見せ方。X 側のスタイルに勝つ必要があるので指定は強めにしている。 */
+
+[data-rh-state="hidden"] {
+  display: none !important;
+}
+
+[data-rh-state="veiled"],
+[data-rh-state="pending"] {
+  position: relative;
+}
+
+/* 中身をぼかす。オーバーレイ側で backdrop-filter を使うと、X の
+   仮想スクロールで再利用された要素に残りやすいので、こちらに当てる。 */
+[data-rh-state="veiled"] > *:not(.rh-overlay),
+[data-rh-state="pending"] > *:not(.rh-overlay) {
+  filter: blur(14px);
+  pointer-events: none;
+  user-select: none;
+}
+
+[data-rh-state="pending"] > *:not(.rh-overlay) {
+  filter: blur(8px);
+  opacity: 0.6;
+}
+
+.rh-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  z-index: 1;
+  font-family: inherit;
+  text-align: center;
+  padding: 12px;
+}
+
+.rh-overlay__label {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.rh-overlay__reason {
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.rh-overlay__button {
+  padding: 4px 14px;
+  font-size: 12px;
+  font-family: inherit;
+  color: inherit;
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: 9999px;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.rh-overlay__button:hover {
+  opacity: 1;
+}
+
+/* 判定待ちはボタンを出さない。数百ミリ秒で消えるので、出しても押せない。 */
+[data-rh-state="pending"] .rh-overlay__button {
+  display: none;
+}
