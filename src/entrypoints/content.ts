@@ -4,7 +4,8 @@ import { applyAnonymize } from "../content/anonymize"
 import "../content/anonymize.css"
 import { Pipeline } from "../content/pipeline"
 import "../content/veil.css"
-import { getSettings, watchSettings, type Settings } from "../core/settings"
+import type { Settings } from "../core/settings"
+import { getSettings, watchSettings } from "../core/settings-store"
 
 export default defineContentScript({
   matches: ["https://x.com/*", "https://twitter.com/*"],

@@ -1,8 +1,8 @@
 import { defineConfig } from "vitest/config"
 
-// settings.ts が WXT の #imports から storage を取るので、テストでは
-// chrome.storage を持たないダミーに差し替える。判定ロジックは設定の
-// 「型」だけを使うため、これで純粋な関数として検証できる。
+// 判定ロジックは settings.ts の型と既定値しか使わないので、テストは
+// #imports に触れない。storage を使うコード（settings-store.ts）を
+// テストから読み込む場合に備えて、ダミーへの alias だけ残しておく。
 export default defineConfig({
   resolve: {
     alias: { "#imports": new URL("./test/stubs/imports.ts", import.meta.url).pathname },

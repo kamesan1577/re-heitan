@@ -3,7 +3,7 @@ import { defineBackground } from "#imports"
 import * as cache from "../core/cache"
 import type { Request, Response } from "../core/messages"
 import { getStats, moderate, resetStats } from "../core/moderator"
-import { getSettings } from "../core/settings"
+import { getSettings } from "../core/settings-store"
 
 export default defineBackground(() => {
   chrome.runtime.onMessage.addListener(

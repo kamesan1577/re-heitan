@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react"
 
-import {
-  DEFAULT_SETTINGS,
-  getSettings,
-  setSettings,
-  watchSettings,
-  type Settings,
-} from "../core/settings"
+import { DEFAULT_SETTINGS, type Settings } from "../core/settings"
+import { getSettings, setSettings, watchSettings } from "../core/settings-store"
 
 /** popup と options で共有する設定フック。保存は即時。 */
 export function useSettings(): [Settings, (p: Partial<Settings>) => void, boolean] {
