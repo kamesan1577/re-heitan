@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "description": "X（旧Twitter）のタイムラインから誹謗中傷を取り除く Chrome 拡張。判定を System One モデル jev で行い、毎回の往復を数百ミリ秒に収める。",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "wxt",

@@ -129,3 +129,7 @@ src/entrypoints/ background / content script / popup / options
   タイムラインで詰める前提で考えてください。`npm run probe` はそのためにあります。
 - 投稿の取得は X の `data-testid` に依存しています。壊れた場合は判定が
   行われなくなるだけで、タイムラインは素通しになります。
+
+## ライセンス
+
+[MIT](LICENSE)
